@@ -6,10 +6,11 @@
 
 ## Overview
 
-A static Next.js App Router site presenting Priscilla Roberts's 25-piece quilting
-collection. Each quilt is displayed in a mixed-grid editorial gallery with a
-click-to-open lightbox showing the label, recipient, description, and details.
-Implemented from a Claude Design HTML/CSS/JS handoff bundle.
+A static Next.js App Router site presenting Priscilla Roberts's quilting
+collection (currently 14 verified works). Each quilt is displayed in a
+mixed-grid editorial gallery with a click-to-open lightbox showing the label,
+recipient, description, and details. Implemented from a Claude Design
+HTML/CSS/JS handoff bundle.
 
 ## Stack
 
@@ -34,8 +35,8 @@ components/
   QuiltPlaceholder.tsx — palette-driven fallback used when an image is missing
   Reveal.tsx          — IntersectionObserver scroll-reveal mounted on the home page
 lib/
-  quilts.ts           — 25-quilt dataset + HERO_FILES map from Q-id → filename
-public/images/        — 24 Hero JPGs (Q-01 through Q-25; Q-16 has no hero shot)
+  quilts.ts           — 14-quilt dataset + HERO_FILES map from Q-id → filename
+public/images/        — Hero JPGs (orphaned files for removed slots remain on disk)
 tailwind.config.ts    — design tokens mirrored into Tailwind theme
 next.config.ts
 tsconfig.json
@@ -93,7 +94,7 @@ type Quilt = {
 
 const HERO_FILES: Record<string, string>; // Q-id → filename under /images/
 function heroSrc(id: string): string | null;
-const QUILTS: Quilt[]; // 25 entries, Q-01 … Q-25
+const QUILTS: Quilt[]; // 14 verified entries
 ```
 
 ## Design fidelity
@@ -109,8 +110,8 @@ Sections implemented:
 1. **Hero** — editorial variant. Left: eyebrow, two-line display name with the
    surname in accent italic, italic tagline, meta row, CTA. Right: Q-11 hero
    image with low-opacity `01` numeral and tiny caption label.
-2. **Collection** — 25-card mixed grid. Hover reveals name/recipient/label snippet
-   with an accent glow. Filter bar toggles visibility.
+2. **Collection** — mixed grid (currently 14 cards). Hover reveals name/
+   recipient/label snippet with an accent glow. Filter bar toggles visibility.
 3. **Lightbox** — 7/12 photo + 5/12 meta (eyebrow, name, italic recipient, pull
    quote for the label, description, details list, back link). Esc / ← / → / click-
    outside all close or navigate.
@@ -151,14 +152,16 @@ Q-XX prefix matches the id). If an id has no file (Q-16 — Cathedral Windows),
 the entry is omitted from `HERO_FILES` and the card falls back to a
 palette-gradient placeholder driven by the quilt's `palette` array.
 
-**Known issue (deferred, tracked for manual resolution):** 9 of the 25 slots
-(Q-03 Patriots, Q-07 Log Cabin, Q-10 Nine Patch, Q-12 Bear Paw, Q-15 Double
-Wedding Ring, Q-16 Cathedral Windows, Q-17 Star, Q-23 Flying Geese, Q-25 Four
-Patch) are generic-pattern labels whose current image mappings do not confidently
-depict the named pattern. Vision-matching against the source folder produced no
-8+/10 match for any of these patterns — Priscilla's actual quilts in those slots
-appear to be different patterns than the current labels describe. Awaiting
-Priscilla's review to reconcile slot names with actual quilt patterns.
+**Dataset history:** The original build shipped with 25 slots. A 2026-04-19
+cleanup removed 11 unverified slots whose pattern names and/or images could not
+be reconciled against Priscilla's actual quilts — 9 with fabricated pattern
+labels (Q-03 Patriots, Q-07 Log Cabin, Q-10 Nine Patch, Q-12 Bear Paw, Q-15
+Double Wedding Ring, Q-16 Cathedral Windows, Q-17 Star, Q-23 Flying Geese, Q-25
+Four Patch) and 2 that failed vision matching (Q-04 Trip Around the World, Q-19
+Pinwheels). The 14 surviving slots are vision-verified against their mapped
+images. Outreach list for Priscilla lives at `PRISCILLA_QUILT_LIST.md` (repo
+root). Orphaned image files in `public/images/` for removed slots are left in
+place pending Priscilla's review.
 
 ## Commands
 
