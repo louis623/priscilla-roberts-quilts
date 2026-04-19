@@ -18,8 +18,8 @@ Implemented from a Claude Design HTML/CSS/JS handoff bundle.
 - **Styling:** Tailwind CSS + hand-authored tokens (CSS custom properties) in
   `app/globals.css`. Bespoke component classes (`.hero-name`, `.q-card`, etc.) are
   kept as CSS rather than utility soup, per the design handoff note.
-- **Fonts:** `next/font/google` — Bodoni Moda (display serif), EB Garamond (body
-  italic), Manrope (sans), JetBrains Mono (placeholder labels).
+- **Fonts:** `next/font/google` — Bodoni Moda (display/headings) and Manrope
+  (body, nav, captions, stats, footer). Two-font pairing per the Claude Design spec.
 - **Hosting:** Vercel (Fluid Compute / static prerender).
 
 ## File layout
@@ -72,9 +72,18 @@ Tokens (colors, type scale, spacing, motion) are faithful to the handoff
 
 ## Image contract
 
-Hero photos are named per the contract `Q-XX_Hero_<description>.jpg` and mapped by
-id in `lib/quilts.ts :: HERO_FILES`. If an id has no file (Q-16), the card falls
-back to a palette-gradient placeholder driven by the quilt's `palette` array.
+Hero photos are named `Q-XX_Hero_<description>.jpg` in `public/images/`. Because
+the on-disk filenames were assigned at shoot time while the quilt dataset was
+authored separately, `lib/quilts.ts :: HERO_FILES` maps each quilt id to the
+image file that actually contains that quilt (which is often NOT the file whose
+Q-XX prefix matches the id). If an id has no file (Q-16 — Cathedral Windows),
+the entry is omitted from `HERO_FILES` and the card falls back to a
+palette-gradient placeholder driven by the quilt's `palette` array.
+
+## Header
+
+The sticky top `.nav` uses a solid `#0f0a1a` background at all scroll positions
+so nav text stays readable against any underlying content.
 
 ## Commands
 
