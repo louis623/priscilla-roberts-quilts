@@ -11,7 +11,7 @@
   --bg-default: #0f0a1a;
   --bg-black: #070309;
   --bg-warm: #15100f;
-  --bg: var(--bg-warm);
+  --bg: var(--bg-default);
 
   --surface-1: #1a1228;
   --surface-2: #241932;
@@ -72,7 +72,7 @@ body {
   color: var(--cream);
   font-family: var(--sans);
   font-size: var(--fs-base);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -204,7 +204,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-weight: 400;
   font-size: clamp(22px, 2.4vw, 32px);
   color: var(--cream);
-  opacity: 0.85;
+  opacity: 1;
   max-width: 22ch;
   line-height: 1.35;
   margin-bottom: var(--sp-8);
@@ -339,7 +339,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-size: var(--fs-md);
   line-height: 1.55;
   color: var(--cream);
-  opacity: 0.82;
+  opacity: 1;
   max-width: 44ch;
   padding-bottom: var(--sp-3);
 }
@@ -467,7 +467,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-size: 13px;
   line-height: 1.45;
   color: var(--cream);
-  opacity: 0.82;
+  opacity: 1;
   margin-top: var(--sp-3);
   max-width: 36ch;
   display: -webkit-box;
@@ -557,11 +557,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-size: var(--fs-md);
   line-height: 1.65;
   color: var(--cream);
-  opacity: 0.88;
+  opacity: 1;
   max-width: 58ch;
   margin-bottom: var(--sp-5);
 }
-.about-body p + p { opacity: 0.78; }
+.about-body p + p { opacity: 1; }
 .about-stats {
   display: flex;
   gap: var(--sp-8);
@@ -718,7 +718,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-size: var(--fs-base);
   line-height: 1.7;
   color: var(--cream);
-  opacity: 0.82;
+  opacity: 1;
   margin-bottom: var(--sp-7);
   max-width: 44ch;
 }

@@ -63,10 +63,8 @@ export const QUILTS: Quilt[] = [
     size: "lg",
     category: "featured",
     palette: ["#1a1812", "#2d5a3e", "#8b1a1a", "#d4c2a0"],
-    label:
-      "In loving memory. Pieced from his own clothes, so his shape would still be near.",
-    description:
-      "A lion at the center of a black, green, red, and cream chevron border. Every piece of fabric in this quilt once belonged to Priscilla's son Damond — his dress shirts, his favorite things. Made after his passing, as a way to keep him close.",
+    label: "",
+    description: "",
     details: {
       year: "—",
       size: "Queen",
