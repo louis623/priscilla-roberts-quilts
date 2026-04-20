@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { QUILTS, heroSrc, type Quilt, type QuiltCategory } from "@/lib/quilts";
 import { QuiltPlaceholder } from "./QuiltPlaceholder";
 
@@ -17,10 +17,7 @@ export function Gallery() {
   const [filter, setFilter] = useState<Filter>("all");
   const [lbIndex, setLbIndex] = useState<number>(-1);
 
-  const shown = useMemo(
-    () => QUILTS.filter((q) => filter === "all" || q.category === filter),
-    [filter]
-  );
+  const shown = QUILTS.filter((q) => filter === "all" || q.category === filter);
 
   const openLB = useCallback((id: string) => {
     const idx = QUILTS.findIndex((q) => q.id === id);
@@ -29,12 +26,9 @@ export function Gallery() {
 
   const closeLB = useCallback(() => setLbIndex(-1), []);
 
-  const navLB = useCallback(
-    (dir: number) => {
-      setLbIndex((i) => (i < 0 ? i : (i + dir + QUILTS.length) % QUILTS.length));
-    },
-    []
-  );
+  const navLB = useCallback((dir: number) => {
+    setLbIndex((i) => (i < 0 ? i : (i + dir + QUILTS.length) % QUILTS.length));
+  }, []);
 
   useEffect(() => {
     if (lbIndex < 0) {
@@ -91,13 +85,14 @@ export function Gallery() {
         }}
       >
         <button className="lb-close" aria-label="Close" onClick={closeLB} />
-        <button className="lb-nav lb-prev" aria-label="Previous" onClick={() => navLB(-1)}>
-          ‹
-        </button>
-        <button className="lb-nav lb-next" aria-label="Next" onClick={() => navLB(1)}>
-          ›
-        </button>
-        {activeQuilt && <LightboxContent quilt={activeQuilt} onBack={closeLB} />}
+        {activeQuilt && (
+          <LightboxContent
+            quilt={activeQuilt}
+            onBack={closeLB}
+            onPrev={() => navLB(-1)}
+            onNext={() => navLB(1)}
+          />
+        )}
       </div>
     </>
   );
@@ -133,44 +128,93 @@ function QuiltCard({
             }}
           />
         )}
-        <div className="q-number">{quilt.id}</div>
         {quilt.featured && <div className="q-featured-tag">Featured</div>}
         <div className="q-info">
-          <h3 className="q-name">{quilt.name}</h3>
-          <div className="q-recipient">{quilt.recipient}</div>
-          {quilt.label && <div className="q-story">&ldquo;{quilt.label}&rdquo;</div>}
+          <div className="q-info-inner">
+            <h3 className="q-name">{quilt.name}</h3>
+            <div className="q-recipient">{quilt.recipient}</div>
+            {quilt.label && <div className="q-story">&ldquo;{quilt.label}&rdquo;</div>}
+          </div>
         </div>
       </div>
     </article>
   );
 }
 
-function LightboxContent({ quilt, onBack }: { quilt: Quilt; onBack: () => void }) {
+function LightboxContent({
+  quilt,
+  onBack,
+  onPrev,
+  onNext,
+}: {
+  quilt: Quilt;
+  onBack: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
   const src = heroSrc(quilt.id);
-  const categoryLabel = quilt.featured
-    ? "Featured"
-    : quilt.category === "strong"
-    ? "Gallery Piece"
-    : "Traditional";
+  const [hintVisible, setHintVisible] = useState(true);
+  const touchStartX = useRef<number | null>(null);
+
+  useEffect(() => {
+    const t = setTimeout(() => setHintVisible(false), 4000);
+    return () => clearTimeout(t);
+  }, []);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const start = touchStartX.current;
+    touchStartX.current = null;
+    if (start == null) return;
+    const delta = e.changedTouches[0].clientX - start;
+    setHintVisible(false);
+    if (Math.abs(delta) > 50) {
+      if (delta < 0) onNext();
+      else onPrev();
+    }
+  };
+
   return (
     <div className="lb-content">
-      <div className="lb-photo">
-        <QuiltPlaceholder quilt={quilt} />
-        {src && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={src}
-            alt={quilt.name}
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = "none";
-            }}
-          />
-        )}
+      <div className="lb-photo-wrap">
+        <button
+          className="lb-arrow lb-arrow-prev"
+          aria-label="previous quilt"
+          onClick={onPrev}
+        >
+          ‹
+        </button>
+        <div
+          className="lb-photo"
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          <QuiltPlaceholder quilt={quilt} />
+          {src && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={src}
+              alt={quilt.name}
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = "none";
+              }}
+            />
+          )}
+        </div>
+        <button
+          className="lb-arrow lb-arrow-next"
+          aria-label="next quilt"
+          onClick={onNext}
+        >
+          ›
+        </button>
+        <div className={`lb-swipe-hint${hintVisible ? "" : " hidden"}`}>
+          ← swipe →
+        </div>
       </div>
       <div className="lb-meta">
-        <div className="lb-number">
-          {quilt.id} · {categoryLabel}
-        </div>
         <h2 className="lb-name">{quilt.name}</h2>
         <div className="lb-recipient">{quilt.recipient}</div>
         {quilt.label && (
@@ -203,12 +247,6 @@ function LightboxContent({ quilt, onBack }: { quilt: Quilt; onBack: () => void }
             <>
               <dt>Materials</dt>
               <dd>{quilt.details.materials}</dd>
-            </>
-          )}
-          {quilt.hasDetailShot && (
-            <>
-              <dt>Label</dt>
-              <dd>Detail shot: images/{quilt.id}_Detail.jpg</dd>
             </>
           )}
         </dl>

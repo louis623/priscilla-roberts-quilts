@@ -1,6 +1,6 @@
 # Codebase Snapshot — priscilla-roberts-quilts
 
-**Generated:** 2026-04-19
+**Generated:** 2026-04-20
 **Repo:** https://github.com/louis623/priscilla-roberts-quilts
 **Production:** https://priscilla-roberts-quilts.vercel.app
 
@@ -107,16 +107,29 @@ hard-codes the final picked combination and omits the tweaks panel.
 
 Sections implemented:
 
-1. **Hero** — editorial variant. Left: eyebrow, two-line display name with the
-   surname in accent italic, italic tagline, meta row, CTA. Right: Q-11 hero
-   image with low-opacity `01` numeral and tiny caption label.
-2. **Collection** — mixed grid (currently 14 cards). Hover reveals name/
-   recipient/label snippet with an accent glow. Filter bar toggles visibility.
-3. **Lightbox** — 7/12 photo + 5/12 meta (eyebrow, name, italic recipient, pull
-   quote for the label, description, details list, back link). Esc / ← / → / click-
-   outside all close or navigate.
-4. **About** — sticky portrait placeholder + copy, three-stat row.
-5. **Footer** — single tracked-uppercase line.
+1. **Hero** — editorial variant. Left: two-line display name with the surname in
+   accent italic, italic tagline, meta row (Textile Art · Quilting · Private
+   Collection), CTA. Right: Q-11 hero image with low-opacity `01` numeral and a
+   small solid-black caption label.
+2. **Collection** — left block holds the section title ("The quilts, and the
+   people they were made for.") with the italic portion in accent purple, plus
+   the narrative paragraph below it; right block holds a placeholder feature
+   quilt ("This is what I'm working on"). Mixed grid (currently 14 cards) sits
+   under the intro. Hover reveals a compact solid-black caption with name/
+   recipient/label snippet over the image. Q-numbers are hidden from public view
+   but remain in underlying data + file names.
+3. **Lightbox** — 7/12 photo + 5/12 meta (name, italic recipient, pull quote for
+   the label, description, details list, back link). Header shows only the quilt
+   title and recipient (no Q-number, no category eyebrow). Tech detail labels
+   render in green with a colon; values render in white at body text size.
+   Navigation via thin stroke chevrons positioned just outside the image edges.
+   Mobile viewports also get a fade-out "← swipe →" hint and touch-swipe
+   navigation. Esc / ← / → / click-outside all close or navigate.
+4. **About** — sticky portrait placeholder + copy. Narrative ends at the closing
+   paragraph; no stats row, no horizontal rule.
+5. **Footer** — single tracked-uppercase line ("Built by Neon Rabbit Digital
+   Services"). No Contact nav item; the site has no contact form (private, for
+   friends and family who already know how to reach Priscilla).
 
 Tokens (colors, type scale, spacing, motion) are faithful to the handoff
 `design-system.html`.

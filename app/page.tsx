@@ -16,15 +16,11 @@ export default function Home() {
         <div className="nav-links">
           <a href="#collection">Collection</a>
           <a href="#about">About</a>
-          <a href="#contact">Contact</a>
         </div>
       </nav>
 
       <section className="section hero" id="top">
         <div className="hero-copy reveal in">
-          <div className="hero-eyebrow">
-            <span className="eyebrow">Boston, Massachusetts · Since the 1980s</span>
-          </div>
           <h1 className="hero-name">
             Priscilla
             <br />
@@ -37,7 +33,7 @@ export default function Home() {
           </p>
           <div className="hero-meta">
             <span>Textile Art</span>
-            <span>25 Works</span>
+            <span>Quilting</span>
             <span>Private Collection</span>
           </div>
           <a href="#collection" className="cta">
@@ -53,7 +49,7 @@ export default function Home() {
               // eslint-disable-next-line @next/next/no-img-element
               <img src={heroHeroSrc} alt="Damond's Quilt" />
             )}
-            <div className="hero-image-label">Q-11 · Damond&rsquo;s Quilt · Lead Work</div>
+            <div className="hero-image-label">Damond&rsquo;s Quilt · Lead Work</div>
           </div>
         </div>
       </section>
@@ -61,24 +57,30 @@ export default function Home() {
       <section className="section" id="collection">
         <div className="container-wide">
           <div className="gallery-intro reveal">
-            <div>
+            <div className="gallery-intro-left">
               <div className="section-number">I. The Collection</div>
               <h2>
-                Twenty-five
-                <br />
-                quilts,{" "}
+                The quilts,{" "}
                 <em>
                   and the people
                   <br />
                   they were made for.
                 </em>
               </h2>
+              <p className="lead">
+                Each piece in this collection was made as a gift — never for sale. The names
+                beneath each work are the people who now keep them. Hover a quilt to read its
+                story; open one to see the label that was stitched to its back.
+              </p>
             </div>
-            <p className="lead">
-              Each piece in this collection was made as a gift — never for sale. The names
-              beneath each work are the people who now keep them. Hover a quilt to read its
-              story; open one to see the label that was stitched to its back.
-            </p>
+            <div className="gallery-intro-right">
+              <div className="feature-block">
+                <div className="feature-placeholder">
+                  <span>Image Coming Soon</span>
+                </div>
+                <div className="feature-caption">This is what I&rsquo;m working on</div>
+              </div>
+            </div>
           </div>
           <Gallery />
         </div>
@@ -122,30 +124,12 @@ export default function Home() {
                 that the people who carry her work in their homes can see it the way it
                 deserves to be seen — as the art it is.
               </p>
-              <div className="about-stats">
-                <div className="stat">
-                  <div className="stat-num">
-                    25<em>+</em>
-                  </div>
-                  <div className="stat-label">Quilts made</div>
-                </div>
-                <div className="stat">
-                  <div className="stat-num">Decades</div>
-                  <div className="stat-label">Of craft</div>
-                </div>
-                <div className="stat">
-                  <div className="stat-num">
-                    <em>Boston</em>
-                  </div>
-                  <div className="stat-label">Massachusetts</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="footer" id="contact">
+      <footer className="footer">
         <div>Built by Neon Rabbit Digital Services</div>
       </footer>
 
