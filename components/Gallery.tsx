@@ -92,6 +92,7 @@ function QuiltCard({
           />
         )}
         <div className="q-info">
+          <div className="q-admin-id">{quilt.id}</div>
           <div className="q-info-inner">
             <h3 className="q-name">{quilt.name}</h3>
             <div className="q-recipient">{quilt.recipient}</div>
@@ -177,6 +178,7 @@ function LightboxContent({
         </div>
       </div>
       <div className="lb-meta">
+        <div className="eyebrow lb-admin-id">{quilt.id}</div>
         <h2 className="lb-name">{quilt.name}</h2>
         <div className="lb-recipient">{quilt.recipient}</div>
         {quilt.label && (

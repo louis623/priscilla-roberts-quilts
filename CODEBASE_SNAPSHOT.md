@@ -1,6 +1,6 @@
 # Codebase Snapshot — priscilla-roberts-quilts
 
-**Generated:** 2026-04-20
+**Generated:** 2026-04-20 (rev. temp admin Q-number display)
 **Repo:** https://github.com/louis623/priscilla-roberts-quilts
 **Production:** https://priscilla-roberts-quilts.vercel.app
 
@@ -121,9 +121,14 @@ Sections implemented:
    with name/recipient/label snippet over the image; on hover the card title
    switches from cream to accent purple (`--accent-secondary`). Q-numbers are
    hidden from public view but remain in underlying data + file names.
+   **Temporary admin aid (2026-04-20):** the Q-number now renders in the
+   top-right of the hover overlay (`.q-admin-id`) so Priscilla can cross-
+   reference the site against her catalog spreadsheet. Removed once the
+   spreadsheet is complete.
 3. **Lightbox** — 7/12 photo + 5/12 meta (name, italic recipient, pull quote for
    the label, description, details list, back link). Header shows only the quilt
-   title and recipient (no Q-number, no category eyebrow). Tech detail labels
+   title and recipient (plus a small temporary Q-number eyebrow above the
+   title — same admin aid as above; `.lb-admin-id`). Tech detail labels
    render in green with a colon; values render in white at body text size.
    Navigation via thin stroke chevrons positioned just outside the image edges.
    Mobile viewports also get a fade-out "← swipe →" hint and touch-swipe
