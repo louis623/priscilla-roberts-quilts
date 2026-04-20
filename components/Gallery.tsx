@@ -1,23 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { QUILTS, heroSrc, type Quilt, type QuiltCategory } from "@/lib/quilts";
+import { QUILTS, heroSrc, type Quilt } from "@/lib/quilts";
 import { QuiltPlaceholder } from "./QuiltPlaceholder";
 
-type Filter = "all" | QuiltCategory;
-
-const FILTERS: { label: string; value: Filter }[] = [
-  { label: "All 25", value: "all" },
-  { label: "Featured", value: "featured" },
-  { label: "Gallery Pieces", value: "strong" },
-  { label: "Traditional & Tonal", value: "traditional" },
-];
-
 export function Gallery() {
-  const [filter, setFilter] = useState<Filter>("all");
   const [lbIndex, setLbIndex] = useState<number>(-1);
-
-  const shown = QUILTS.filter((q) => filter === "all" || q.category === filter);
 
   const openLB = useCallback((id: string) => {
     const idx = QUILTS.findIndex((q) => q.id === id);
@@ -52,28 +40,9 @@ export function Gallery() {
 
   return (
     <>
-      <div className="gallery-filter reveal">
-        <span className="filter-label">View</span>
-        {FILTERS.map((f) => (
-          <button
-            key={f.value}
-            className={filter === f.value ? "active" : undefined}
-            onClick={() => setFilter(f.value)}
-          >
-            {f.label}
-          </button>
-        ))}
-        <span className="count">{shown.length} works shown</span>
-      </div>
-
       <div className="gallery-grid hover--glow">
         {QUILTS.map((q) => (
-          <QuiltCard
-            key={q.id}
-            quilt={q}
-            hidden={filter !== "all" && q.category !== filter}
-            onClick={() => openLB(q.id)}
-          />
+          <QuiltCard key={q.id} quilt={q} onClick={() => openLB(q.id)} />
         ))}
       </div>
 
@@ -100,20 +69,14 @@ export function Gallery() {
 
 function QuiltCard({
   quilt,
-  hidden,
   onClick,
 }: {
   quilt: Quilt;
-  hidden: boolean;
   onClick: () => void;
 }) {
   const src = heroSrc(quilt.id);
   return (
-    <article
-      className={`q-card size-${quilt.size}`}
-      style={{ display: hidden ? "none" : undefined }}
-      onClick={onClick}
-    >
+    <article className="q-card" onClick={onClick}>
       <div className="q-frame">
         <QuiltPlaceholder quilt={quilt} />
         {src && (
@@ -128,7 +91,6 @@ function QuiltCard({
             }}
           />
         )}
-        {quilt.featured && <div className="q-featured-tag">Featured</div>}
         <div className="q-info">
           <div className="q-info-inner">
             <h3 className="q-name">{quilt.name}</h3>

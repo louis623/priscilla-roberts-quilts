@@ -31,7 +31,7 @@ app/
   layout.tsx          — root layout, next/font wiring
   page.tsx            — Home: nav, hero, collection, about, footer
 components/
-  Gallery.tsx         — client component: filter bar + grid + lightbox + keyboard nav
+  Gallery.tsx         — client component: masonry grid + lightbox + keyboard nav
   QuiltPlaceholder.tsx — palette-driven fallback used when an image is missing
   Reveal.tsx          — IntersectionObserver scroll-reveal mounted on the home page
 lib/
@@ -114,10 +114,13 @@ Sections implemented:
 2. **Collection** — left block holds the section title ("The quilts, and the
    people they were made for.") with the italic portion in accent purple, plus
    the narrative paragraph below it; right block holds a placeholder feature
-   quilt ("This is what I'm working on"). Mixed grid (currently 14 cards) sits
-   under the intro. Hover reveals a compact solid-black caption with name/
-   recipient/label snippet over the image. Q-numbers are hidden from public view
-   but remain in underlying data + file names.
+   quilt ("This is what I'm working on"). CSS-columns masonry grid (3 columns
+   desktop / 1 mobile, 14 cards) sits directly under the intro — no filter bar,
+   no category buttons, no work counter. Cards size naturally from image aspect
+   ratios via `break-inside: avoid`. Hover reveals a compact solid-black caption
+   with name/recipient/label snippet over the image; on hover the card title
+   switches from cream to accent purple (`--accent-secondary`). Q-numbers are
+   hidden from public view but remain in underlying data + file names.
 3. **Lightbox** — 7/12 photo + 5/12 meta (name, italic recipient, pull quote for
    the label, description, details list, back link). Header shows only the quilt
    title and recipient (no Q-number, no category eyebrow). Tech detail labels

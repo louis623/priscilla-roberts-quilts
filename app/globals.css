@@ -387,79 +387,38 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   padding: var(--sp-2) var(--sp-3);
   align-self: flex-start;
 }
-.gallery-filter {
-  display: flex;
-  gap: var(--sp-5);
-  padding: var(--sp-5) 0 var(--sp-7);
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
-  margin-bottom: var(--sp-7);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--cream-muted);
-  flex-wrap: wrap;
-  align-items: center;
-}
-.gallery-filter .filter-label {
-  color: var(--cream-dim);
-  padding-right: var(--sp-4);
-  border-right: 1px solid var(--hairline);
-}
-.gallery-filter button {
-  color: var(--cream-muted);
-  letter-spacing: inherit;
-  text-transform: inherit;
-  font-size: inherit;
-  padding: 4px 0;
-  border-bottom: 1px solid transparent;
-  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
-}
-.gallery-filter button:hover,
-.gallery-filter button.active {
-  color: var(--cream);
-  border-bottom-color: var(--accent-primary);
-}
-.gallery-filter .count { margin-left: auto; color: var(--cream-dim); }
-
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: var(--sp-5);
+  column-count: 3;
+  column-gap: var(--sp-5);
   padding-bottom: var(--sp-10);
 }
 .q-card {
   position: relative;
-  grid-column: span 2;
-  grid-row: span 1;
+  display: block;
   cursor: pointer;
   opacity: 0;
   transform: translateY(24px);
   transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+  break-inside: avoid;
+  margin-bottom: var(--sp-5);
 }
 .q-card.in { opacity: 1; transform: none; }
-.q-card.size-lg { grid-column: span 3; grid-row: span 2; }
-.q-card.size-md { grid-column: span 2; grid-row: span 1; }
-.q-card.size-sm { grid-column: span 2; grid-row: span 1; }
-.q-card.size-tall { grid-column: span 2; grid-row: span 2; }
 .q-frame {
   position: relative;
   overflow: hidden;
   background: var(--surface-1);
-  aspect-ratio: 4 / 5;
   transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
   box-shadow: 0 0 0 1px var(--hairline);
 }
-.q-card.size-lg .q-frame { aspect-ratio: 1 / 1; }
-.q-card.size-tall .q-frame { aspect-ratio: 4 / 6; }
 .q-img {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
+  display: block;
+  position: relative;
+  width: 100%;
+  height: auto;
   transition: transform 1200ms var(--ease), filter var(--dur) var(--ease);
 }
 .q-card:hover .q-img { transform: scale(1.04); }
+.q-card:hover .q-name { color: var(--accent-secondary); }
 .gallery-grid.hover--glow .q-card:hover .q-frame {
   box-shadow:
     0 0 0 1px var(--accent-primary),
@@ -493,7 +452,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   color: var(--cream);
   margin-bottom: var(--sp-2);
 }
-.q-card.size-lg .q-name { font-size: clamp(28px, 3vw, 44px); }
 .q-recipient {
   font-family: var(--sans);
   font-style: italic;
@@ -515,19 +473,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-.q-featured-tag {
-  position: absolute;
-  top: var(--sp-4);
-  right: var(--sp-4);
-  font-size: 9px;
-  letter-spacing: 0.36em;
-  text-transform: uppercase;
-  color: var(--cream);
-  padding: 4px 8px;
-  border: 1px solid var(--hairline-strong);
-  background: rgba(15, 10, 26, 0.5);
-  backdrop-filter: blur(4px);
 }
 .q-placeholder {
   position: absolute;
@@ -822,14 +767,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .hero-meta span:not(:last-child)::after { margin-left: var(--sp-4); }
   .hero-index { display: none; }
   .gallery-intro { grid-template-columns: 1fr; gap: var(--sp-5); padding: var(--sp-8) 0 var(--sp-6); }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: var(--sp-3); }
-  .q-card.size-lg { grid-column: span 2; grid-row: span 1; }
-  .q-card.size-lg .q-frame { aspect-ratio: 4 / 5; }
-  .q-card.size-tall { grid-row: span 1; }
+  .gallery-grid { column-count: 1; column-gap: var(--sp-3); }
+  .q-card { margin-bottom: var(--sp-3); }
   .q-info { opacity: 1; background: transparent; }
   .q-story { display: none; }
-  .gallery-filter { gap: var(--sp-3); }
-  .gallery-filter .count { display: none; }
   .about-grid { grid-template-columns: 1fr; gap: var(--sp-7); }
   .about-portrait { position: relative; top: 0; }
   .lb-content { grid-template-columns: 1fr; padding: var(--sp-7) var(--sp-4); gap: var(--sp-6); }
